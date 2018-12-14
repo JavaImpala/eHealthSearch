@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
 import eHealthSearch.crawler.pubmed.Id;
-import eHealthSearch.crawler.pubmed.PubMedSearch;
+import eHealthSearch.crawler.pubmed.PubMedIdSearch;
 
 public class EHealthCrawler {
 	
@@ -17,10 +17,10 @@ public class EHealthCrawler {
 			System.setProperty("javax.xml.accessExternalDTD", "all"); 
 	        // Make a URL to the web page
 	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=eye");
-	        JAXBContext context = JAXBContext.newInstance(PubMedSearch.class);
+	        JAXBContext context = JAXBContext.newInstance(PubMedIdSearch.class);
 	        Unmarshaller um = context.createUnmarshaller();
 	       
-	        PubMedSearch pubSearch = (PubMedSearch) um.unmarshal(url);
+	        PubMedIdSearch pubSearch = (PubMedIdSearch) um.unmarshal(url);
 	       
 	        List<Id> list = pubSearch.getIds();
 	        
@@ -29,7 +29,6 @@ public class EHealthCrawler {
 	        for (Id id : list) {
 	            System.out.println("PMID: " + id.getId());
 	        }
-        
 		}catch(Exception e) {
 			System.out.println(e);
 		}

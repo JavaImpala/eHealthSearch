@@ -16,7 +16,6 @@ public class Id {
 	}
 	
 	public void setId(long id) {
-		System.out.println("halo?");
 		this.id = id;
 	}
 
