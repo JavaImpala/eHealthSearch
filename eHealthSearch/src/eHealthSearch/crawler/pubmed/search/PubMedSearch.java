@@ -1,4 +1,4 @@
-package eHealthSearch.crawler.pubmed;
+package eHealthSearch.crawler.pubmed.search;
 
 public class PubMedSearch {
 	

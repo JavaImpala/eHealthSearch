@@ -1,4 +1,4 @@
-package eHealthSearch.crawler.pubmed;
+package eHealthSearch.crawler.pubmed.search;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

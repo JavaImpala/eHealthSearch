@@ -1,7 +1,23 @@
 package eHealthSearch.crawler.pubmed.paper;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement( name = "DateCompleted" )
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class PubmedDate {
-	private int year,month,day;
+	
+	@XmlElement(name = "Year")
+	private int year;
+	
+	@XmlElement(name = "Month")
+	private int month;
+	
+	@XmlElement(name = "Day")
+	private int day;
 
 	public int getYear() {
 		return year;
@@ -25,6 +41,11 @@ public class PubmedDate {
 
 	public void setDay(int day) {
 		this.day = day;
+	}
+
+	@Override
+	public String toString() {
+		return "PubmedDate [year=" + year + ", month=" + month + ", day=" + day + "]";
 	}
 	
 	

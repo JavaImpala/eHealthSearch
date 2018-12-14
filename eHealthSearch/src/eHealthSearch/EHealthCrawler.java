@@ -6,8 +6,9 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
-import eHealthSearch.crawler.pubmed.Id;
-import eHealthSearch.crawler.pubmed.PubMedIdSearch;
+import eHealthSearch.crawler.pubmed.GetPubmedPublication;
+import eHealthSearch.crawler.pubmed.search.Id;
+import eHealthSearch.crawler.pubmed.search.PubMedIdSearch;
 
 public class EHealthCrawler {
 	
@@ -27,7 +28,7 @@ public class EHealthCrawler {
 	        System.out.println(list.size()+" resultater");
 	        
 	        for (Id id : list) {
-	            System.out.println("PMID: " + id.getId());
+	        	GetPubmedPublication.get(id.getId());
 	        }
 		}catch(Exception e) {
 			System.out.println(e);
