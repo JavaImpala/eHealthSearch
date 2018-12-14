@@ -16,6 +16,7 @@ public class EHealthCrawler {
 		
 		try {
 			System.setProperty("javax.xml.accessExternalDTD", "all"); 
+			
 	        // Make a URL to the web page
 	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=eye");
 	        JAXBContext context = JAXBContext.newInstance(PubMedIdSearch.class);
@@ -27,8 +28,10 @@ public class EHealthCrawler {
 	        
 	        System.out.println(list.size()+" resultater");
 	        
+	        GetPubmedPublication getter=new GetPubmedPublication();
+	        
 	        for (Id id : list) {
-	        	GetPubmedPublication.get(id.getId());
+	        	getter.get(id.getId());
 	        }
 		}catch(Exception e) {
 			System.out.println(e);
