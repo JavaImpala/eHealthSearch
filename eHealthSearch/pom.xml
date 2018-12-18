@@ -3,6 +3,14 @@
   <groupId>org.ntnu.torbjoto</groupId>
   <artifactId>eHealthSearch</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <dependencies>
+    <dependency>
+    	<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-core</artifactId>
+    	<version>5.4.0.Final</version>
+ 	</dependency>
+  </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
