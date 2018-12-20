@@ -11,12 +11,8 @@ import eHealthSearch.crawler.pubmed.paper.meta.PubmedData;
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class PubmedRootArticle {
-	
-	
-	
 	@XmlElement(name = "MedlineCitation")
 	private PubmedMedlineCitation medlineCitation;
-	
 	
 	@XmlElement(name = "PubmedData")
 	private PubmedData meta;

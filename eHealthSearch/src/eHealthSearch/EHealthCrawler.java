@@ -2,6 +2,7 @@ package eHealthSearch;
 
 import java.net.URL;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -18,7 +19,7 @@ public class EHealthCrawler {
 			System.setProperty("javax.xml.accessExternalDTD", "all"); 
 			
 	        // Make a URL to the web page
-	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=eye");
+	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=eye&retmax=450");
 	        
 	        JAXBContext context = JAXBContext.newInstance(PubMedIdSearch.class);
 	        Unmarshaller um = context.createUnmarshaller();
@@ -30,10 +31,11 @@ public class EHealthCrawler {
 	        System.out.println(list.size()+" resultater");
 	        
 	        GetPubmedPublication getter=new GetPubmedPublication();
+
+	        getter.get(list.stream().map(i->i.getId()).collect(Collectors.toList()));
 	        
-	        for (Id id : list) {
-	        	getter.get(id.getId());
-	        }
+	        
+	        
 		}catch(Exception e) {
 			System.out.println(e);
 		}

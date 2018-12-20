@@ -1,7 +1,10 @@
 package eHealthSearch.crawler.pubmed;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -28,14 +31,18 @@ public class GetPubmedPublication {
 		}
 	}
 	
-	public PubmedArticleSet get(long id) {
+	public PubmedArticleSet get(Collection<Long> idCollection) {
 		
 
 		try {
 			System.out.println("====================");
 			
+			String ids=idCollection.stream()
+					.map(i->i.toString())
+					.collect(Collectors.joining(","));
+			
 	        // Make a URL to the web page
-	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id="+id+"&tool=ehelsesok&email=torbjorn.torsvik@ehealthresearch.no");
+	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id="+ids+"&tool=ehelsesok&email=torbjorn.torsvik@ehealthresearch.no");
 	        time.time("åpner stream");
 	        InputStream input=url.openStream();
 	        
@@ -45,9 +52,8 @@ public class GetPubmedPublication {
 	        PubmedArticleSet pubResult = (PubmedArticleSet) um.unmarshal(input);
 	        time.time("ferdigUnmarshal");
 	        
-	        System.out.println(pubResult);
-	       
-	        
+		}catch(IOException  e) {
+			e.printStackTrace();
 		}catch(Exception e) {
 			System.out.println(e);
 		}
