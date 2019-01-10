@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
-import eHealthSearch.crawler.pubmed.GetPubmedPublication;
-import eHealthSearch.crawler.pubmed.search.Id;
-import eHealthSearch.crawler.pubmed.search.PubMedIdSearch;
+import eHealthSearch.search.pubmed.GetPubmedPublication;
+import eHealthSearch.search.pubmed.search.Id;
+import eHealthSearch.search.pubmed.search.PubMedIdSearch;
 
 public class EHealthCrawler {
 	
@@ -19,7 +19,7 @@ public class EHealthCrawler {
 			System.setProperty("javax.xml.accessExternalDTD", "all"); 
 			
 	        // Make a URL to the web page
-	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=eye&retmax=450");
+	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=eye&retmax=450&2010:2018[dp] ");
 	        
 	        JAXBContext context = JAXBContext.newInstance(PubMedIdSearch.class);
 	        Unmarshaller um = context.createUnmarshaller();
