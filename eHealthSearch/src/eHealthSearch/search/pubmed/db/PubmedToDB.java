@@ -63,28 +63,23 @@ public class PubmedToDB {
 							auth.setFirstName(author.getForeName());
 							auth.setFamilyName(author.getLastName());
 							
-							authors.add(auth);
 							
-							if(author.getAffiliations()!=null && author.getAffiliations().getAffiliation()!=null) {
+						
+							if(author.getAffiliations() !=null) {
 								List<Affiliation> affs=new ArrayList<>(); 
 								
-								throw new IllegalStateException("kommer vi hit?");
-								/*
-								for(String aff:author.getAffiliations().getAffiliation()) {
-									
-									System.out.println("======================================>"+aff);
-									System.out.println("======================================>"+aff);
-									System.out.println("======================================>"+aff);
-									System.out.println("======================================>"+aff);
-									
+							
+								for(String aff:author.getAffiliations()) {
 									Affiliation a=new Affiliation();
 									a.setName(aff);
 									affs.add(a);
 								}
 								
 								auth.setAffiliations(affs);	
-								*/
+								
 							}
+							
+							authors.add(auth);
 						}
 						
 						pub.setAuthors(authors);

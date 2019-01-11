@@ -1,5 +1,7 @@
 package eHealthSearch.search.pubmed.paper.article;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,8 +21,9 @@ public class PubmedAuthor {
 	@XmlElement(name="Initials")
 	private String initials;
 	
-	@XmlElement(name = "AffiliationInfo")
-	private PubmedAuthorAffiliations affiliations;
+	@XmlElementWrapper(name = "AffiliationInfo") 
+	@XmlElement(name = "Affiliation")
+	private List<String> affiliations;
 
 	public String getLastName() {
 		return lastName;
@@ -46,11 +49,11 @@ public class PubmedAuthor {
 		this.initials = initials;
 	}
 
-	public PubmedAuthorAffiliations getAffiliations() {
+	public List<String> getAffiliations() {
 		return affiliations;
 	}
 
-	public void setAffiliations(PubmedAuthorAffiliations affiliations) {
+	public void setAffiliations(List<String> affiliations) {
 		this.affiliations = affiliations;
 	}
 

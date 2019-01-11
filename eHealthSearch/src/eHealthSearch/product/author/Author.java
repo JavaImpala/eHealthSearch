@@ -17,7 +17,7 @@ import eHealthSearch.product.affiliation.Affiliation;
 @Table(name="author")
 public class Author {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int authorId;
 	
 	private String firstName;

@@ -33,7 +33,7 @@ public class PubmedArticle {
 	private List<String> publicationType;
 	
 	@XmlElementWrapper(name = "PublicationTypeList")
-	@XmlElement(name = "PublicationType")
+	@XmlElement(name = "ArticleId")
 	private List<String> articleIdList;
 	
 	
