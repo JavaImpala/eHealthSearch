@@ -1,7 +1,9 @@
 package eHealthSearch.search.pubmed.db;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -44,6 +46,9 @@ public class PubmedToDB {
 			//article
 			PubmedMedlineCitation cit = article.getMedlineCitation();
 			
+			Map<String,Affiliation> allAffiliations=new HashMap<>(); 
+			Map<String,Author> allAuthors=new HashMap<>();
+			
 			if(cit!=null) {
 				if(cit.getArticle()!=null) {
 					if(cit.getArticle().getPaperAbstract()!=null) {
@@ -63,16 +68,24 @@ public class PubmedToDB {
 							auth.setFirstName(author.getForeName());
 							auth.setFamilyName(author.getLastName());
 							
-							
+							if(allAuthors.containsKey(auth.getFullName())) {
+								auth=allAuthors.get(auth.getFullName());
+							}else {
+								allAuthors.put(auth.getFullName(),auth);
+							}
 						
 							if(author.getAffiliations() !=null) {
 								List<Affiliation> affs=new ArrayList<>(); 
 								
-							
 								for(String aff:author.getAffiliations()) {
 									Affiliation a=new Affiliation();
 									a.setName(aff);
-									affs.add(a);
+									
+									if(!allAffiliations.containsKey(a.getName())) {
+										allAffiliations.put(aff,a);
+									}
+									
+									affs.add(allAffiliations.get(aff));
 								}
 								
 								auth.setAffiliations(affs);	
