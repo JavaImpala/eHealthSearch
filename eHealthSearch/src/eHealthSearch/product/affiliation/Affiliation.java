@@ -17,7 +17,7 @@ public class Affiliation{
 	
 	@Column(columnDefinition="text")
 	private String name;
-
+	
 	public int getAffiliationId() {
 		return affiliationId;
 	}

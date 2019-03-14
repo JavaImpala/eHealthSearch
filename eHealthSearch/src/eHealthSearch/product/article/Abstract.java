@@ -17,6 +17,8 @@ public class Abstract {
 	@Column(columnDefinition="text")
 	private String text;
 	
+	
+	
 	public int getAbstractId() {
 		return abstractId;
 	}
@@ -32,4 +34,11 @@ public class Abstract {
 	public void setText(String text) {
 		this.text = text;
 	}
+
+	@Override
+	public String toString() {
+		return "Abstract [abstractId=" + abstractId + ", text=" + text + "]";
+	}
+	
+	
 }

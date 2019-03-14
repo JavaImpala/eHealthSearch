@@ -3,7 +3,9 @@ package eHealthSearch.search.pubmed;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
@@ -13,6 +15,9 @@ import javax.xml.bind.Unmarshaller;
 import eHealthSearch.TimeTracker;
 import eHealthSearch.search.pubmed.db.PubmedToDB;
 import eHealthSearch.search.pubmed.paper.PubmedArticleSet;
+import eHealthSearch.search.pubmed.paper.PubmedRootArticle;
+import eHealthSearch.search.pubmed.search.Id;
+import eHealthSearch.search.pubmed.search.PubMedIdSearch;
 
 public class GetPubmedPublication {
 	private JAXBContext context;
@@ -32,36 +37,79 @@ public class GetPubmedPublication {
 		}
 	}
 	
-	public PubmedArticleSet get(Collection<Long> idCollection) {
+	public PubmedArticleSet get() {
 		
-
 		try {
 			
-			PubmedToDB db = new PubmedToDB();
-			
-			System.out.println("====================");
-			
-			String ids=idCollection.stream()
-					.map(i->i.toString())
-					.collect(Collectors.joining(","));
-			
-	        // Make a URL to the web page
-	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id="+ids+"&tool=ehelsesok&email=torbjorn.torsvik@ehealthresearch.no");
-	        time.time("åpner stream");
-	        InputStream input=url.openStream();
+			JAXBContext context = JAXBContext.newInstance(PubMedIdSearch.class);
+	        Unmarshaller um = context.createUnmarshaller();
 	        
-	        //JAXB
+	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=Norway[AD]&mindate=2014&maxdate=2017&datetype=edat&retmax=1000&usehistory=y");
+	        
+	        PubMedIdSearch pubSearch = (PubMedIdSearch) um.unmarshal(url);
 	       
-	        time.time("starterUnmarshal");
-	        PubmedArticleSet pubResult = (PubmedArticleSet) um.unmarshal(input);
-	        db.addResultSetToDB(pubResult);
-	        time.time("ferdigUnmarshal");
+	        List<Id> list = pubSearch.getIds();
+	        
+	        GetPubmedPublication getter=new GetPubmedPublication();
+
+	        List<Long> idCollection=list.stream().map(i->i.getId()).collect(Collectors.toList());
+			
+			List<List<Long>> subLists=new ArrayList<>();
+			int subListSize=400;
+			
+			List<Long> currentList=new ArrayList<>();
+			int count=1;
+			
+			for(long id:idCollection) {
+				
+				currentList.add(id);
+				
+				if(count%subListSize==0) {
+					subLists.add(currentList);
+					currentList=new ArrayList<>();
+					
+				}
+				
+				count++;
+			}
+			
+			subLists.add(currentList);
+			
+			List<PubmedRootArticle> articles=new ArrayList<>();
+			
+			for(List<Long> subList:subLists) {
+				
+				
+				System.out.println("====================");
+				
+				String ids=subList.stream()
+						.map(i->i.toString())
+						.collect(Collectors.joining(","));
+				
+		        // Make a URL to the web page
+		        URL url2 = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id="+ids+"&tool=ehelsesok&email=torbjorn.torsvik@ehealthresearch.no");
+		        time.time("åpner stream");
+		        InputStream input=url2.openStream();
+		        
+		        //JAXB
+		       
+		        time.time("starterUnmarshal");
+		        articles.addAll(((PubmedArticleSet) um.unmarshal(input)).getPublications());
+		        
+		        time.time("ferdigUnmarshal");
+			}
+			
+			PubmedToDB db = new PubmedToDB();
+			db.addResultSetToDB(articles);
+			
 	        
 		}catch(IOException  e) {
 			e.printStackTrace();
 		}catch(Exception e) {
 			System.out.println(e);
 		}
+		
+		
 		
 		
 		return null;

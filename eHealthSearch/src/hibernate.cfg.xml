@@ -5,18 +5,22 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://10.0.0.152/helsesok?jdbcCompliantTruncation=false</property>
+        <property name="hibernate.connection.url">jdbc:mysql://10.0.0.152/helsesok_test?jdbcCompliantTruncation=false</property>
         <property name="hibernate.connection.username">test_user</property>
         <property name="hibernate.connection.password">helsesok</property>
         <property name="hibernate.connection.pool_size">10</property>
         <property name="hibernate.current_session_context_class">thread</property>
-        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.show_sql">false</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
-       
         
+       	<mapping class="eHealthSearch.product.mesh.MeshElement" />
+       	<mapping class="eHealthSearch.product.mesh.Term" />
+       	<mapping class="eHealthSearch.product.keyword.Keyword" />
+        <mapping class="eHealthSearch.product.author.PublicationAuthorAffiliation" />
         <mapping class="eHealthSearch.product.article.Publication" />
 		<mapping class="eHealthSearch.product.article.Abstract" />
+		<mapping class="eHealthSearch.product.article.ArticleId" />
 		<mapping class="eHealthSearch.product.author.Author" />
 		<mapping class="eHealthSearch.product.affiliation.Affiliation" />
     </session-factory>

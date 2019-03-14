@@ -1,4 +1,6 @@
-package eHealthSearch.search.pubmed.paper.article;
+package eHealthSearch.search.pubmed.paper.article.mesh;
+
+import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,24 +12,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 public class PubmedMesh {
 	@XmlElement(name="DescriptorName")
-	private String descriptorVal;
+	private PubmedMeshDescriptor descriptorVal;
 	
 	@XmlElement(name="QualifierName")
-	private String qualifierVal;
-
-	public String getDescriptorVal() {
+	private ArrayList<PubmedMeshQualifier> qualifierVal;
+	
+	public PubmedMesh() {
+		
+	}
+	
+	
+	
+	public PubmedMeshDescriptor getDescriptorVal() {
 		return descriptorVal;
 	}
 
-	public void setDescriptorVal(String descriptorVal) {
+
+
+	public void setDescriptorVal(PubmedMeshDescriptor descriptorVal) {
 		this.descriptorVal = descriptorVal;
 	}
 
-	public String getQualifierVal() {
+
+
+	public ArrayList<PubmedMeshQualifier> getQualifierVal() {
 		return qualifierVal;
 	}
 
-	public void setQualifierVal(String qualifierVal) {
+	public void setQualifierVal(ArrayList<PubmedMeshQualifier> qualifierVal) {
 		this.qualifierVal = qualifierVal;
 	}
 

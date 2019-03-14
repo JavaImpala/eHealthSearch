@@ -1,22 +1,24 @@
-package eHealthSearch.search.pubmed.paper.article;
+package eHealthSearch.search.pubmed.paper.article.abs;
+
+import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement( name = "Abstract" )
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PubmedAbstract {
 	
-	@XmlElement(name="AbstractText")
-	private String text;
-
-	public String getText() {
+	@XmlAnyElement(BodyDomHandler.class)
+	private ArrayList<String> text;
+	
+	public ArrayList<String> getText() {
 		return text;
 	}
 
-	public void setText(String text) {
+	public void setText(ArrayList<String> text) {
 		this.text = text;
 	}
 
@@ -24,6 +26,4 @@ public class PubmedAbstract {
 	public String toString() {
 		return "PubmedAbstract [text=" + text + "]";
 	}
-	
-	
 }
