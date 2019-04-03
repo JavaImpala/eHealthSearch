@@ -1,8 +1,9 @@
 package eHealthSearch.search.scopus;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,9 +44,8 @@ public class GetScopusPublication {
 				List<ScopusEntry> articles=new ArrayList<>();
 				
 		        // Make a URL to the web page
-		        URL url = new URL("https://api.elsevier.com/content/search/scopus?query=all(gene)&apiKey=7f59af901d2d86f78a1fd60c1bf9426a&view=complete&httpAccept=application/xml");
-		        time.time("åpner stream");
-		        InputStream input=url.openStream();
+				File initialFile = new File("src/scopus_full.xml");
+				InputStream input = new FileInputStream(initialFile);
 		        
 		        //JAXB
 		       
@@ -53,6 +53,11 @@ public class GetScopusPublication {
 		        articles.addAll(((ScopusSearchResults) um.unmarshal(input)).getPublications());
 		        
 		        time.time("ferdigUnmarshal");
+		        
+		        
+		        for(ScopusEntry article:articles) {
+		        	System.out.println(article);
+		        }
 			
 			
 			//PubmedToDB db = new PubmedToDB();

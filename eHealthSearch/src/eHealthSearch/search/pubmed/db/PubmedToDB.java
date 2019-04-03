@@ -25,7 +25,6 @@ import eHealthSearch.product.mesh.Term;
 import eHealthSearch.search.pubmed.paper.PubmedMedlineCitation;
 import eHealthSearch.search.pubmed.paper.PubmedRootArticle;
 import eHealthSearch.search.pubmed.paper.article.PubmedAuthor;
-import eHealthSearch.search.pubmed.paper.article.abs.PubmedAbstractText;
 import eHealthSearch.search.pubmed.paper.article.keyword.PubmedKeyword;
 import eHealthSearch.search.pubmed.paper.article.mesh.PubmedMesh;
 import eHealthSearch.search.pubmed.paper.article.mesh.PubmedMeshQualifier;
