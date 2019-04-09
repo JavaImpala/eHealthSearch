@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 public class PubmedArticleSet {
 	
-	
 	@XmlElement(name = "PubmedArticle")
 	List<PubmedRootArticle> publications;
 

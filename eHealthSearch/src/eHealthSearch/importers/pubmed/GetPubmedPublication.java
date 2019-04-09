@@ -1,10 +1,11 @@
 package eHealthSearch.importers.pubmed;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,15 +38,18 @@ public class GetPubmedPublication {
 		}
 	}
 	
-	public PubmedArticleSet get() {
+	public List<PubmedRootArticle> get() {
+		
+		List<PubmedRootArticle> articles=new ArrayList<>();
 		
 		try {
 			
-			JAXBContext context = JAXBContext.newInstance(PubMedIdSearch.class);
+			
+	        
+	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=Norway[AD]&mindate=2014&maxdate=2017&datetype=edat&retmax=15&usehistory=y");
+	        
+	        JAXBContext context = JAXBContext.newInstance(PubMedIdSearch.class);
 	        Unmarshaller um = context.createUnmarshaller();
-	        
-	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=Norway[AD]&mindate=2014&maxdate=2017&datetype=edat&retmax=1000&usehistory=y");
-	        
 	        PubMedIdSearch pubSearch = (PubMedIdSearch) um.unmarshal(url);
 	       
 	        List<Id> list = pubSearch.getIds();
@@ -75,12 +79,12 @@ public class GetPubmedPublication {
 			
 			subLists.add(currentList);
 			
-			List<PubmedRootArticle> articles=new ArrayList<>();
+			
 			
 			for(List<Long> subList:subLists) {
 				
 				
-				System.out.println("====================");
+				System.out.println("===================="+subList);
 				
 				String ids=subList.stream()
 						.map(i->i.toString())
@@ -92,9 +96,11 @@ public class GetPubmedPublication {
 		        InputStream input=url2.openStream();
 		        
 		        //JAXB
+		        JAXBContext context2 = JAXBContext.newInstance(PubmedArticleSet.class);
+		        Unmarshaller um2 = context2.createUnmarshaller();
 		       
 		        time.time("starterUnmarshal");
-		        articles.addAll(((PubmedArticleSet) um.unmarshal(input)).getPublications());
+		        articles.addAll(((PubmedArticleSet) um2.unmarshal(input)).getPublications());
 		        
 		        time.time("ferdigUnmarshal");
 			}
@@ -109,9 +115,6 @@ public class GetPubmedPublication {
 			System.out.println(e);
 		}
 		
-		
-		
-		
-		return null;
+		return articles;
 	}
 }

@@ -8,10 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import eHealthSearch.importers.pubmed.paper.PubmedMedlineCitation;
 import eHealthSearch.importers.pubmed.paper.PubmedRootArticle;
@@ -31,22 +28,10 @@ import eHealthSearch.product.keyword.Keyword;
 import eHealthSearch.product.mesh.MeshElement;
 import eHealthSearch.product.mesh.Term;
 
-public class PubmedToDB {
-	private SessionFactory factory; 
+public class PubMedConverter {
 	
-	public PubmedToDB() {
-		try {
-	         factory = new Configuration().configure().buildSessionFactory();
-		  }catch(HibernateException exception){
-			  System.out.println("Problem creating session factory");  
-			  exception.printStackTrace();
-	      }catch (Throwable ex) { 
-	         System.err.println("Failed to create sessionFactory object." + ex);
-	         throw new ExceptionInInitializerError(ex); 
-	      }
-	}
 	
-	public void addResultSetToDB(List<PubmedRootArticle> pubmedArticles) {
+public void addResultSetToDB(List<PubmedRootArticle> pubmedArticles) {
 		
 		Session session=factory.openSession();
 		session.beginTransaction();
