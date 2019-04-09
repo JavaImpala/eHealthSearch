@@ -1,6 +1,6 @@
 package eHealthSearch;
 
-import eHealthSearch.search.scopus.GetScopusPublication;
+import eHealthSearch.importers.scopus.GetScopusPublication;
 
 public class EHealthCrawler {
 	
