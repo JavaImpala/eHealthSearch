@@ -2,8 +2,14 @@ package eHealthSearch;
 
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import eHealthSearch.importers.pubmed.GetPubmedPublication;
-import eHealthSearch.importers.pubmed.paper.PubmedRootArticle;
+import eHealthSearch.model.ArticlesInDB;
+import eHealthSearch.product.article.Publication;
+import eHealthSearch.query.GeneralQuery;
 
 public class EHealthCrawler {
 	
@@ -14,9 +20,46 @@ public class EHealthCrawler {
 			
 			System.setProperty("javax.xml.accessExternalDTD", "all"); 
 			
-	        // Make a URL to the web page
+			/*
+			 * Åpner hibernate session
+			 */
+			
+			SessionFactory factory = new Configuration().configure().buildSessionFactory();
+			
+			Session session=factory.openSession();
+			session.beginTransaction();
+			
+			ArticlesInDB model=new ArticlesInDB(session);
+			
+	        /*
+	         * importerer
+	         */
 	       
-			List<PubmedRootArticle> pubmedArticles = new GetPubmedPublication().get();
+			GeneralQuery query=null;
+			
+			List<Publication> publications = new GetPubmedPublication().get(query);
+			
+			/*
+			 * Åpner hibernate for å legge inn i database 
+			 */
+			
+			
+			for(Publication p:publications) {
+				System.out.println(p);
+				
+				
+				if(model.match(p).isPresent()) {
+					System.out.println("ingen add! "+model.match(p).get());
+				}else {
+					//session.save(p);
+				}
+				
+				
+				//session.save(p);
+			}
+			
+			session.getTransaction().commit();
+			session.close();
 	        
 	      
 		}catch(Exception e) {

@@ -27,7 +27,7 @@ public class ArticleId {
 	}
 
 	public void setIdType(String idType) {
-		this.idType = idType;
+		this.idType = idType.trim();
 	}
 
 	public String getId() {
@@ -35,7 +35,7 @@ public class ArticleId {
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.id = id.trim();
 	}
 
 	public Publication getArticle() {
@@ -57,8 +57,37 @@ public class ArticleId {
 	@Override
 	public String toString() {
 		return "ArticleId [articleLinkId=" + articleLinkId + ", idType=" + idType + ", id=" + id + ", article="
-				+ article.getPublicationId() + "]";
+				+ article.getLocalDBId() + "]";
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((idType == null) ? 0 : idType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ArticleId other = (ArticleId) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (idType == null) {
+			if (other.idType != null)
+				return false;
+		} else if (!idType.equals(other.idType))
+			return false;
+		return true;
+	}
 }

@@ -22,12 +22,10 @@ import eHealthSearch.product.mesh.Term;
 public class Publication {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int publicationId;
+	private int localDBId;
 	
 	@Column(name="title",columnDefinition="text")
 	private String title;
-	
-	
 
 	@OneToOne(cascade = {CascadeType.ALL})
 	private Abstract abs;
@@ -43,18 +41,18 @@ public class Publication {
 	private Collection<Term> terms;
 	
 	@OneToMany(cascade = {CascadeType.ALL},mappedBy="article")
-	private Collection<ArticleId> citIds;
+	private Collection<ArticleId> articleIds;
 	
-	public Collection<ArticleId> getCitIds() {
-		return citIds;
+	public Collection<ArticleId> getArticleIds() {
+		return articleIds;
 	}
 
-	public void setCitIds(Collection<ArticleId> citIds) {
-		this.citIds = citIds;
+	public void setArticleIds(Collection<ArticleId> citIds) {
+		this.articleIds = citIds;
 	}
 
-	public int getPublicationId() {
-		return publicationId;
+	public int getLocalDBId() {
+		return localDBId;
 	}
 	
 	public Collection<Keyword> getKeywords() {
@@ -65,8 +63,8 @@ public class Publication {
 		this.keywords = keywords;
 	}
 
-	public void setPublicationId(int publicationId) {
-		this.publicationId = publicationId;
+	public void setLocalDBId(int publicationId) {
+		this.localDBId = publicationId;
 	}
 
 	public Abstract getAbs() {
@@ -103,7 +101,7 @@ public class Publication {
 
 	@Override
 	public String toString() {
-		return "Publication [publicationId=" + publicationId + ", abs=" + abs + ", authors=" + authors + ", terms="
-				+ terms + ", citIds=" + citIds + "]";
+		return "Publication [publicationId=" + localDBId + ", abs=" + abs + ", authors=" + authors + ", terms="
+				+ terms + ", citIds=" + articleIds + "]";
 	}
 }

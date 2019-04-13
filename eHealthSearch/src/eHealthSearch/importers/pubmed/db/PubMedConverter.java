@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.Session;
-
 import eHealthSearch.importers.pubmed.paper.PubmedMedlineCitation;
 import eHealthSearch.importers.pubmed.paper.PubmedRootArticle;
 import eHealthSearch.importers.pubmed.paper.article.PubmedAuthor;
@@ -31,11 +29,8 @@ import eHealthSearch.product.mesh.Term;
 public class PubMedConverter {
 	
 	
-public void addResultSetToDB(List<PubmedRootArticle> pubmedArticles) {
-		
-		Session session=factory.openSession();
-		session.beginTransaction();
-		
+	public static List<Publication> convert(List<PubmedRootArticle> pubmedArticles) {
+	
 		int count=0;
 		
 		Map<String,Affiliation> allAffiliations=new HashMap<>(); 
@@ -220,7 +215,7 @@ public void addResultSetToDB(List<PubmedRootArticle> pubmedArticles) {
 						ids.add(id);
 					}
 					
-					pub.setCitIds(ids);
+					pub.setArticleIds(ids);
 				}
 			}
 			
@@ -228,24 +223,6 @@ public void addResultSetToDB(List<PubmedRootArticle> pubmedArticles) {
 			
 		}
 		
-		try {
-			System.out.println("==========>save "+(count++)+" "+allAuthors.size());
-			
-			
-			for(Publication p:publications) {
-				session.save(p);
-			}
-			
-			
-			//System.out.println(pub);
-			
-		}catch(Exception ex) {
-			
-		}
-		
-		System.out.println("try to commit");
-		session.getTransaction().commit();
-		session.close();
-		System.out.println("close session");
+		return publications;
 	}
 }

@@ -1,9 +1,7 @@
 package eHealthSearch.importers.pubmed;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +12,14 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import eHealthSearch.TimeTracker;
+import eHealthSearch.importers.pubmed.db.PubMedConverter;
 import eHealthSearch.importers.pubmed.db.PubmedToDB;
 import eHealthSearch.importers.pubmed.paper.PubmedArticleSet;
 import eHealthSearch.importers.pubmed.paper.PubmedRootArticle;
 import eHealthSearch.importers.pubmed.search.Id;
 import eHealthSearch.importers.pubmed.search.PubMedIdSearch;
+import eHealthSearch.product.article.Publication;
+import eHealthSearch.query.GeneralQuery;
 
 public class GetPubmedPublication {
 	private JAXBContext context;
@@ -38,7 +39,7 @@ public class GetPubmedPublication {
 		}
 	}
 	
-	public List<PubmedRootArticle> get() {
+	public List<Publication> get(GeneralQuery query) {
 		
 		List<PubmedRootArticle> articles=new ArrayList<>();
 		
@@ -115,6 +116,6 @@ public class GetPubmedPublication {
 			System.out.println(e);
 		}
 		
-		return articles;
+		return PubMedConverter.convert(articles);
 	}
 }

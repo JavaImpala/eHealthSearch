@@ -16,7 +16,7 @@
         <property name="hibernate.connection.pool_size">10</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">false</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         
        	<mapping class="eHealthSearch.product.mesh.MeshElement" />

@@ -124,7 +124,7 @@ public class ScopusToDB{
 				id.setIdType("doi");
 				id.setId(article.getDoi());
 				
-				pub.setCitIds(Arrays.asList(id));
+				pub.setArticleIds(Arrays.asList(id));
 			}
 			
 			publications.add(pub);

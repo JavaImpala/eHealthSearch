@@ -235,7 +235,7 @@ public class PubmedToDB {
 						ids.add(id);
 					}
 					
-					pub.setCitIds(ids);
+					pub.setArticleIds(ids);
 				}
 			}
 			
