@@ -16,6 +16,7 @@ import eHealthSearch.importers.pubmed.db.PubMedConverter;
 import eHealthSearch.importers.pubmed.db.PubmedToDB;
 import eHealthSearch.importers.pubmed.paper.PubmedArticleSet;
 import eHealthSearch.importers.pubmed.paper.PubmedRootArticle;
+import eHealthSearch.importers.pubmed.query.PubmedQueryConverter;
 import eHealthSearch.importers.pubmed.search.Id;
 import eHealthSearch.importers.pubmed.search.PubMedIdSearch;
 import eHealthSearch.product.article.Publication;
@@ -44,10 +45,7 @@ public class GetPubmedPublication {
 		List<PubmedRootArticle> articles=new ArrayList<>();
 		
 		try {
-			
-			
-	        
-	        URL url = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=Norway[AD]&mindate=2014&maxdate=2017&datetype=edat&retmax=15&usehistory=y");
+	        URL url = new URL(PubmedQueryConverter.convert(query));
 	        
 	        JAXBContext context = JAXBContext.newInstance(PubMedIdSearch.class);
 	        Unmarshaller um = context.createUnmarshaller();
