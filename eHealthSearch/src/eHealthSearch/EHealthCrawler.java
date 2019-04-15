@@ -10,6 +10,7 @@ import eHealthSearch.importers.pubmed.GetPubmedPublication;
 import eHealthSearch.model.ArticlesInDB;
 import eHealthSearch.product.article.Publication;
 import eHealthSearch.query.GeneralQuery;
+import eHealthSearch.query.TimeConstraints;
 
 public class EHealthCrawler {
 	
@@ -35,7 +36,7 @@ public class EHealthCrawler {
 	         * importerer
 	         */
 	       
-			GeneralQuery query=null;
+			GeneralQuery query=GeneralQuery.get(TimeConstraints.get());
 			
 			List<Publication> publications = new GetPubmedPublication().get(query);
 			
