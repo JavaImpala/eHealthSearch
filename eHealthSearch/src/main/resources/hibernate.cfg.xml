@@ -19,14 +19,14 @@
         <property name="hibernate.hbm2ddl.auto">validate</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         
-       	<mapping class="eHealthSearch.product.mesh.MeshElement" />
-       	<mapping class="eHealthSearch.product.mesh.Term" />
-       	<mapping class="eHealthSearch.product.keyword.Keyword" />
-        <mapping class="eHealthSearch.product.author.PublicationAuthorAffiliation" />
-        <mapping class="eHealthSearch.product.article.Publication" />
-		<mapping class="eHealthSearch.product.article.Abstract" />
-		<mapping class="eHealthSearch.product.article.ArticleId" />
-		<mapping class="eHealthSearch.product.author.Author" />
-		<mapping class="eHealthSearch.product.affiliation.Affiliation" />
+       	<mapping class="org.ntnu.torbjoto.eHealthSearch.product.mesh.MeshElement" />
+       	<mapping class="org.ntnu.torbjoto.eHealthSearch.product.mesh.Term" />
+       	<mapping class="org.ntnu.torbjoto.eHealthSearch.product.keyword.Keyword" />
+        <mapping class="org.ntnu.torbjoto.eHealthSearch.product.author.PublicationAuthorAffiliation" />
+        <mapping class="org.ntnu.torbjoto.eHealthSearch.product.article.Publication" />
+		<mapping class="org.ntnu.torbjoto.eHealthSearch.product.article.Abstract" />
+		<mapping class="org.ntnu.torbjoto.eHealthSearch.product.article.ArticleId" />
+		<mapping class="org.ntnu.torbjoto.eHealthSearch.product.author.Author" />
+		<mapping class="org.ntnu.torbjoto.eHealthSearch.product.affiliation.Affiliation" />
     </session-factory>
 </hibernate-configuration>
