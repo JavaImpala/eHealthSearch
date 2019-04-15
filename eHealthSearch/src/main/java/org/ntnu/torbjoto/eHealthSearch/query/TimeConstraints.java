@@ -12,8 +12,8 @@ public class TimeConstraints {
 	
 	public static TimeConstraints get() {
 		return new TimeConstraints(
-				LocalDate.now(),
-				LocalDate.now().minusMonths(1));
+				LocalDate.now().minusMonths(6),
+				LocalDate.now());
 	}
 	
 	public static TimeConstraints get(LocalDate start, LocalDate stop) {

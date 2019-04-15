@@ -2,6 +2,8 @@ package org.ntnu.torbjoto.eHealthSearch;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -12,20 +14,21 @@ import org.ntnu.torbjoto.eHealthSearch.query.GeneralQuery;
 import org.ntnu.torbjoto.eHealthSearch.query.TimeConstraints;
 
 public class EHealthCrawler {
+	private static Logger log = LogManager.getLogger(EHealthCrawler.class);
 	
 	public static void main(String[] args)  {
 		
+		
 		try {
-			
-			
 			System.setProperty("javax.xml.accessExternalDTD", "all"); 
 			
 			/*
 			 * Åpner hibernate session
 			 */
-			
+			log.info("lager sessionFactory ");
 			SessionFactory factory = new Configuration().configure().buildSessionFactory();
 			
+			log.info("åpner session");
 			Session session=factory.openSession();
 			session.beginTransaction();
 			
@@ -36,6 +39,7 @@ public class EHealthCrawler {
 	         */
 	       
 			GeneralQuery query=GeneralQuery.get(TimeConstraints.get());
+			log.info("query pubmed");
 			
 			List<Publication> publications = new GetPubmedPublication().get(query);
 			

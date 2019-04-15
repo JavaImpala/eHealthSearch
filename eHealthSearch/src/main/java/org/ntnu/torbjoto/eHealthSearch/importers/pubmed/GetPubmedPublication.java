@@ -11,6 +11,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.ntnu.torbjoto.eHealthSearch.EHealthCrawler;
 import org.ntnu.torbjoto.eHealthSearch.TimeTracker;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.db.PubMedConverter;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.db.PubmedToDB;
@@ -27,13 +30,15 @@ public class GetPubmedPublication {
 	private Unmarshaller um;
 	private TimeTracker time=new TimeTracker();
 	
+	private static Logger log = LogManager.getLogger(GetPubmedPublication.class);
+	
 	public GetPubmedPublication() {
 		try {
-			time.time("start");
+			
 			this.context=JAXBContext.newInstance(PubmedArticleSet.class);
-			time.time("lagetContext");
+			log.info("åpner session");
 			this.um= context.createUnmarshaller();
-			time.time("lagetUnmarshaller");
+			log.info("lager unmarshaller");
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,14 +81,17 @@ public class GetPubmedPublication {
 				count++;
 			}
 			
-			subLists.add(currentList);
+			if(!currentList.isEmpty()) {
+				subLists.add(currentList);
+			}
+			
 			
 			
 			
 			for(List<Long> subList:subLists) {
 				
 				
-				System.out.println("===================="+subList);
+				log.info("behandler sublist med "+subList+" entries");
 				
 				String ids=subList.stream()
 						.map(i->i.toString())
@@ -98,20 +106,16 @@ public class GetPubmedPublication {
 		        JAXBContext context2 = JAXBContext.newInstance(PubmedArticleSet.class);
 		        Unmarshaller um2 = context2.createUnmarshaller();
 		       
-		        time.time("starterUnmarshal");
+		        log.info("starterUnmarshal");
 		        articles.addAll(((PubmedArticleSet) um2.unmarshal(input)).getPublications());
 		        
-		        time.time("ferdigUnmarshal");
+		        log.info("ferdigUnmarshal");
 			}
-			
-			PubmedToDB db = new PubmedToDB();
-			db.addResultSetToDB(articles);
-			
 	        
 		}catch(IOException  e) {
 			e.printStackTrace();
 		}catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		
 		return PubMedConverter.convert(articles);

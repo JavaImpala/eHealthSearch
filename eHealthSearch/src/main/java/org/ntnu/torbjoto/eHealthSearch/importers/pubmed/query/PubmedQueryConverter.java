@@ -11,9 +11,9 @@ public class PubmedQueryConverter {
 		
 		if(query.getTime().isPresent()) {
 			TimeConstraints t = query.getTime().get();			
-			string=string+"&mindate="+t.getStart().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))+"&maxdate="+t.getStop().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))+"&datetype=pdat";
+			string=string+"&mindate="+t.getStart().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))+"&maxdate="+t.getStop().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))+"&datetype=edat";
 		}
-		
+		System.out.println(string);
 		return string;
 	}
 }
