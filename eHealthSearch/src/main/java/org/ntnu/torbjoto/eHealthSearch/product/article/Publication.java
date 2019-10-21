@@ -101,7 +101,11 @@ public class Publication {
 
 	@Override
 	public String toString() {
-		return "Publication [publicationId=" + localDBId + ", abs=" + abs + ", authors=" + authors + ", terms="
-				+ terms + ", citIds=" + articleIds + "]";
+		return "Publication [localDBId=" + localDBId + ", title=" + title + ", abs=" + abs + ", authors=" + authors
+				+ ", keywords=" + keywords + ", terms=" + terms + ", articleIds=" + articleIds + "]";
 	}
+	
+	
+
+
 }

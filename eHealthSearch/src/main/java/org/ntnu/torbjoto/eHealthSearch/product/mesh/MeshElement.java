@@ -75,12 +75,4 @@ public class MeshElement {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "MeshElement [meshElementId=" + meshElementId + ", ui=" + ui + ", value=" + value + "]";
-	}
-	
-	
-	
 }

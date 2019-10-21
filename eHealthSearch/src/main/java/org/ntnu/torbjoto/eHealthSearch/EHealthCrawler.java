@@ -18,7 +18,6 @@ public class EHealthCrawler {
 	
 	public static void main(String[] args)  {
 		
-		
 		try {
 			System.setProperty("javax.xml.accessExternalDTD", "all"); 
 			
@@ -44,25 +43,30 @@ public class EHealthCrawler {
 			
 			List<Publication> publications = new GetPubmedPublication().get(query);
 			
-			/*
-			 * Åpner hibernate for å legge inn i database 
-			 */
+			log.info("ferdig query, legger inn publications size:"+publications.size());
 			
-			System.out.println("legger inn publications size:"+publications.size());
+			System.out.println("==================");
+			
+			int counter=0;
 			
 			for(Publication p:publications) {
-				System.out.println(p);
+				System.out.println(counter++);
 				
-				
-				if(model.match(p).isPresent()) {
-					System.out.println("ingen add! "+model.match(p).get());
-				}else {
-					session.save(p);
+				if(counter==5) {
+					continue;
 				}
 				
+				if(model.match(p).isPresent()) {
+					log.info("ingen add! "+model.match(p).get());
+				}else {
+					log.info("save:"+p);
+					
+				}
 				
 				session.save(p);
+				//session.save(p);
 			}
+			log.info("before commit");
 			
 			session.getTransaction().commit();
 			session.close();

@@ -55,12 +55,6 @@ public class ArticleId {
 	}
 
 	@Override
-	public String toString() {
-		return "ArticleId [articleLinkId=" + articleLinkId + ", idType=" + idType + ", id=" + id + ", article="
-				+ article.getLocalDBId() + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

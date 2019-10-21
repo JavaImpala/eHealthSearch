@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,9 +27,11 @@ public class PublicationAuthorAffiliation {
 	private Author author;
 	
 	@OneToOne(cascade = {CascadeType.ALL})
+	//@OneToOne
 	private Affiliation affiliation;
 	
-	@OneToOne(cascade = {CascadeType.ALL})
+	//@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne
 	private Publication publication;
 	
 	public int getLinkId() {
@@ -62,4 +65,12 @@ public class PublicationAuthorAffiliation {
 	public void setPublication(Publication publication) {
 		this.publication = publication;
 	}
+
+	@Override
+	public String toString() {
+		return "PublicationAuthorAffiliation [linkId=" + linkId + ", author=" + author.getAuthorId() + ", affiliation=" + affiliation
+				+ ", publication=" + publication.getLocalDBId() + "]";
+	}
+	
+	
 }

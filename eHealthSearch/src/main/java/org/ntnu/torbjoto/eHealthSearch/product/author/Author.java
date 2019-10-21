@@ -22,6 +22,8 @@ public class Author {
 	private String firstName;
 	private String familyName;
 	
+	//@OneToMany(mappedBy="author",cascade = {CascadeType.ALL},orphanRemoval = true)
+	
 	@OneToMany(mappedBy="author",cascade = {CascadeType.ALL})
 	private Collection<PublicationAuthorAffiliation> publicationAffiliations=new ArrayList<>();
 	
@@ -102,8 +104,11 @@ public class Author {
 	@Override
 	public String toString() {
 		return "Author [authorId=" + authorId + ", firstName=" + firstName + ", familyName=" + familyName
-				+ ", affiliations=" + publicationAffiliations + "]";
+				+ ", publicationAffiliations=" + publicationAffiliations + "]";
 	}
+
+	
+	
 	
 	
 }

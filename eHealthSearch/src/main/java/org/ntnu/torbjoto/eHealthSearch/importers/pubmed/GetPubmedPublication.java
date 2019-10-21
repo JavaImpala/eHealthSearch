@@ -30,7 +30,7 @@ public class GetPubmedPublication {
 	private Unmarshaller um;
 	private TimeTracker time=new TimeTracker();
 	
-	private static Logger log = LogManager.getLogger(GetPubmedPublication.class);
+	private static Logger log = LogManager.getRootLogger();
 	
 	public GetPubmedPublication() {
 		try {
@@ -57,11 +57,12 @@ public class GetPubmedPublication {
 	        PubMedIdSearch pubSearch = (PubMedIdSearch) um.unmarshal(url);
 	       
 	        List<Id> list = pubSearch.getIds();
-	        
-	        GetPubmedPublication getter=new GetPubmedPublication();
-
+	       
 	        List<Long> idCollection=list.stream().map(i->i.getId()).collect(Collectors.toList());
+	        idCollection= idCollection.subList(0,2500);
 			
+	        System.out.println("har funnet :"+idCollection.size()+" ider");
+	        
 			List<List<Long>> subLists=new ArrayList<>();
 			int subListSize=400;
 			
@@ -90,8 +91,7 @@ public class GetPubmedPublication {
 			
 			for(List<Long> subList:subLists) {
 				
-				
-				log.info("behandler sublist med "+subList+" entries");
+				log.info("behandler sublist med "+subList.size()+" entries. Har til nå behandlet:"+articles.size());
 				
 				String ids=subList.stream()
 						.map(i->i.toString())

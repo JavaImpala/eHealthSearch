@@ -79,10 +79,6 @@ public class Term {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Term [termId=" + termId + ", descriptor=" + descriptor + ", qualifier=" + qualifier + "]";
-	}
 	
 	
 	
