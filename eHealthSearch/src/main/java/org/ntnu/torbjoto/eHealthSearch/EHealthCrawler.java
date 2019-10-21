@@ -25,6 +25,7 @@ public class EHealthCrawler {
 			/*
 			 * Åpner hibernate session
 			 */
+			
 			log.info("lager sessionFactory ");
 			SessionFactory factory = new Configuration().configure().buildSessionFactory();
 			
@@ -47,6 +48,7 @@ public class EHealthCrawler {
 			 * Åpner hibernate for å legge inn i database 
 			 */
 			
+			System.out.println("legger inn publications size:"+publications.size());
 			
 			for(Publication p:publications) {
 				System.out.println(p);
@@ -55,16 +57,16 @@ public class EHealthCrawler {
 				if(model.match(p).isPresent()) {
 					System.out.println("ingen add! "+model.match(p).get());
 				}else {
-					//session.save(p);
+					session.save(p);
 				}
 				
 				
-				//session.save(p);
+				session.save(p);
 			}
 			
 			session.getTransaction().commit();
 			session.close();
-	        
+			System.out.println("avslutter");
 	      
 		}catch(Exception e) {
 			System.out.println(e);

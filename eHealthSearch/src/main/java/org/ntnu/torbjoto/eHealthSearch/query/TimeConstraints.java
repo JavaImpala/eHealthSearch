@@ -12,7 +12,7 @@ public class TimeConstraints {
 	
 	public static TimeConstraints get() {
 		return new TimeConstraints(
-				LocalDate.now().minusMonths(6),
+				LocalDate.now().minusMonths(12),
 				LocalDate.now());
 	}
 	
