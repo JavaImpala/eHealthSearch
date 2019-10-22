@@ -1,6 +1,8 @@
 package org.ntnu.torbjoto.eHealthSearch;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,25 +49,26 @@ public class EHealthCrawler {
 			
 			System.out.println("==================");
 			
-			int counter=0;
+			
+			Set<Publication> savedPublications=new HashSet<>();
 			
 			for(Publication p:publications) {
-				System.out.println(counter++);
 				
-				if(counter==5) {
-					continue;
-				}
 				
 				if(model.match(p).isPresent()) {
 					log.info("ingen add! "+model.match(p).get());
 				}else {
 					log.info("save:"+p);
 					
+					
+					session.save(p);
+					savedPublications.add(p);
 				}
 				
-				session.save(p);
+				
 				//session.save(p);
 			}
+			
 			log.info("before commit");
 			
 			session.getTransaction().commit();

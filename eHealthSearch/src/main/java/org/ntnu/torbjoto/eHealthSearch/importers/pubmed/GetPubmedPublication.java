@@ -59,8 +59,7 @@ public class GetPubmedPublication {
 	        List<Id> list = pubSearch.getIds();
 	       
 	        List<Long> idCollection=list.stream().map(i->i.getId()).collect(Collectors.toList());
-	        idCollection= idCollection.subList(0,2500);
-			
+	       
 	        System.out.println("har funnet :"+idCollection.size()+" ider");
 	        
 			List<List<Long>> subLists=new ArrayList<>();
@@ -85,9 +84,6 @@ public class GetPubmedPublication {
 			if(!currentList.isEmpty()) {
 				subLists.add(currentList);
 			}
-			
-			
-			
 			
 			for(List<Long> subList:subLists) {
 				

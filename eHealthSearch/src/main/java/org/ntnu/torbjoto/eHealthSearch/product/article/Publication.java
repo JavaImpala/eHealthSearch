@@ -22,6 +22,7 @@ import org.ntnu.torbjoto.eHealthSearch.product.mesh.Term;
 public class Publication {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="localDBId",columnDefinition="publicationId")
 	private int localDBId;
 	
 	@Column(name="title",columnDefinition="text")

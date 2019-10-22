@@ -53,6 +53,13 @@ public class ArticleId {
 	public void setArticleLinkId(int articleLinkId) {
 		this.articleLinkId = articleLinkId;
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "ArticleId [articleLinkId=" + articleLinkId + ", idType=" + idType + ", id=" + id + "]";
+	}
 
 	@Override
 	public int hashCode() {

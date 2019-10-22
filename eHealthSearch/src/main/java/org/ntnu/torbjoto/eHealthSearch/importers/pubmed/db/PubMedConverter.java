@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.PubmedMedlineCitation;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.PubmedRootArticle;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.article.PubmedAuthor;
@@ -222,6 +223,8 @@ public class PubMedConverter {
 			publications.add(pub);
 			
 		}
+		
+		LogManager.getRootLogger().info("ferdig å konvertere, sender ut:"+publications.size()+" av:"+pubmedArticles.size());
 		
 		return publications;
 	}
