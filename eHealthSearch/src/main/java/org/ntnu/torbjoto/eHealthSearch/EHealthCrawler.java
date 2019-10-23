@@ -16,7 +16,7 @@ import org.ntnu.torbjoto.eHealthSearch.query.GeneralQuery;
 import org.ntnu.torbjoto.eHealthSearch.query.TimeConstraints;
 
 public class EHealthCrawler {
-	private static Logger log = LogManager.getLogger(EHealthCrawler.class);
+	private static Logger log = LogManager.getRootLogger();
 	
 	public static void main(String[] args)  {
 		
