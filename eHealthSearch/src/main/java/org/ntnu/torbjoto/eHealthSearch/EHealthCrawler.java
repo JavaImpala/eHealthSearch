@@ -47,7 +47,7 @@ public class EHealthCrawler {
 			
 			log.info("ferdig query, legger inn publications size:"+publications.size());
 			
-			System.out.println("==================");
+			//System.out.println("==================");
 			
 			
 			Set<Publication> savedPublications=new HashSet<>();

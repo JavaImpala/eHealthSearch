@@ -1,5 +1,6 @@
 package org.ntnu.torbjoto.eHealthSearch.importers.pubmed.db;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -105,6 +106,16 @@ public class PubmedToDB {
 						abs.setText(text.toString());
 						
 						pub.setAbs(abs);
+					}
+					
+					if(cit.getDate()!=null) {
+						pub.setLocalDateTime(
+								LocalDateTime.of(
+										cit.getDate().getYear(),
+										cit.getDate().getMonth(),
+										cit.getDate().getDay(),
+										0, 
+										0));
 					}
 					
 					if(cit.getArticle().getAuthors()!=null) {

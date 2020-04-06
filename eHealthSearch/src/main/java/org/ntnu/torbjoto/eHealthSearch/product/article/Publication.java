@@ -1,5 +1,6 @@
 package org.ntnu.torbjoto.eHealthSearch.product.article;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.ntnu.torbjoto.eHealthSearch.product.author.Author;
 import org.ntnu.torbjoto.eHealthSearch.product.keyword.Keyword;
@@ -24,6 +27,9 @@ public class Publication {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="localDBId",columnDefinition="publicationId")
 	private int localDBId;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime localDateTime;
 	
 	@Column(name="title",columnDefinition="text")
 	private String title;
@@ -98,6 +104,14 @@ public class Publication {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public LocalDateTime getLocalDateTime() {
+		return localDateTime;
+	}
+
+	public void setLocalDateTime(LocalDateTime localDateTime) {
+		this.localDateTime = localDateTime;
 	}
 
 	@Override
