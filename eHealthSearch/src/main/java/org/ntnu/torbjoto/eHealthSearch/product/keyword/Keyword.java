@@ -16,7 +16,7 @@ import org.ntnu.torbjoto.eHealthSearch.product.article.Publication;
 public class Keyword {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int keywordId;
+	private int keyword_id;
 	
 	@Column(name="major_topic")
 	private boolean majorTopic;
@@ -26,14 +26,14 @@ public class Keyword {
 
 	@ManyToOne
 	@JoinColumn(name="article_id")
-	private Publication article;
+	private Publication publication;
 	
 	public Publication getArticle() {
-		return article;
+		return publication;
 	}
 
 	public void setArticle(Publication article) {
-		this.article = article;
+		this.publication = article;
 	}
 
 	public boolean isMajorTopic() {

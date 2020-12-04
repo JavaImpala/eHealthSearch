@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.PubmedDate;
+
 @XmlRootElement( name = "PubmedData" )
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PubmedData {
@@ -19,6 +21,10 @@ public class PubmedData {
 	@XmlElementWrapper(name = "ReferenceList")
 	@XmlElement(name = "Reference")
 	private List<Reference> refs;
+	
+	@XmlElementWrapper(name = "History")
+	@XmlElement(name = "PubMedPubDate")
+	private List<PubmedDate> dates;
 	
 	public List<PubmedIdentity> getIds() {
 		return ids;
@@ -34,6 +40,14 @@ public class PubmedData {
 
 	public void setRefs(List<Reference> refs) {
 		this.refs = refs;
+	}
+	
+	public List<PubmedDate> getDates() {
+		return dates;
+	}
+
+	public void setDates(List<PubmedDate> dates) {
+		this.dates = dates;
 	}
 
 	@Override

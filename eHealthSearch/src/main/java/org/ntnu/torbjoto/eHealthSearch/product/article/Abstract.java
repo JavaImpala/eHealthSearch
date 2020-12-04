@@ -12,19 +12,17 @@ import javax.persistence.Table;
 public class Abstract {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int abstractId;
+	private int abstract_id;
 	
 	@Column(columnDefinition="text")
 	private String text;
 	
-	
-	
 	public int getAbstractId() {
-		return abstractId;
+		return abstract_id;
 	}
 
 	public void setAbstractId(int abstractId) {
-		this.abstractId = abstractId;
+		this.abstract_id = abstractId;
 	}
 
 	public String getText() {
@@ -37,7 +35,7 @@ public class Abstract {
 
 	@Override
 	public String toString() {
-		return "Abstract [abstractId=" + abstractId + ", text=" + text + "]";
+		return "Abstract [abstractId=" + abstract_id + ", text=" + text + "]";
 	}
 	
 	

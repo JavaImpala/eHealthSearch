@@ -2,12 +2,12 @@ package org.ntnu.torbjoto.eHealthSearch.product.author;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,26 +20,25 @@ public class PublicationAuthorAffiliation {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int linkId;
+	private int link_id;
 	
 	@ManyToOne
 	@JoinColumn(name="author_id")
 	private Author author;
 	
-	@OneToOne(cascade = {CascadeType.ALL})
-	//@OneToOne
+	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	private Affiliation affiliation;
 	
-	//@OneToOne(cascade = {CascadeType.ALL})
+	//@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@OneToOne
 	private Publication publication;
 	
 	public int getLinkId() {
-		return linkId;
+		return link_id;
 	}
 	
 	public void setLinkId(int linkId) {
-		this.linkId = linkId;
+		this.link_id = linkId;
 	}
 	
 	public Author getAuthor() {
@@ -66,11 +65,7 @@ public class PublicationAuthorAffiliation {
 		this.publication = publication;
 	}
 
-	@Override
-	public String toString() {
-		return "PublicationAuthorAffiliation [linkId=" + linkId + ", author=" + author.getAuthorId() + ", affiliation=" + affiliation
-				+ ", publication=" + publication.getLocalDBId() + "]";
-	}
+	
 	
 	
 }

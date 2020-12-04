@@ -114,7 +114,7 @@ public class ScopusToDB{
 					
 				}
 				//System.out.println("antall forfattere:"+authors.size());
-				pub.setAuthors(authors);
+				//pub.setAuthors(authors);
 			}
 				
 			if(article.getDoi()!=null) {

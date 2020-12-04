@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,43 +18,43 @@ import javax.persistence.Transient;
 public class Author {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int authorId;
+	private int author_id;
 	
-	private String firstName;
-	private String familyName;
+	private String first_name;
+	private String family_name;
 	
 	//@OneToMany(mappedBy="author",cascade = {CascadeType.ALL},orphanRemoval = true)
 	
-	@OneToMany(mappedBy="author",cascade = {CascadeType.ALL})
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="author",cascade = {CascadeType.ALL})
 	private Collection<PublicationAuthorAffiliation> publicationAffiliations=new ArrayList<>();
 	
 	public int getAuthorId() {
-		return authorId;
+		return author_id;
 	}
 	
 	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
+		this.author_id = authorId;
 	}
 	
 	@Transient
 	public String getFullName() {
-		return firstName+" "+familyName;
+		return first_name+" "+family_name;
 	}
 	
 	public String getFirstName() {
-		return firstName;
+		return first_name;
 	}
 	
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.first_name = firstName;
 	}
 	
 	public String getFamilyName() {
-		return familyName;
+		return family_name;
 	}
 	
 	public void setFamilyName(String familyName) {
-		this.familyName = familyName;
+		this.family_name = familyName;
 	}
 
 	public Collection<PublicationAuthorAffiliation> getPublicationAffiliations() {
@@ -74,8 +75,8 @@ public class Author {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((familyName == null) ? 0 : familyName.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((family_name == null) ? 0 : family_name.hashCode());
+		result = prime * result + ((first_name == null) ? 0 : first_name.hashCode());
 		return result;
 	}
 
@@ -88,25 +89,20 @@ public class Author {
 		if (getClass() != obj.getClass())
 			return false;
 		Author other = (Author) obj;
-		if (familyName == null) {
-			if (other.familyName != null)
+		if (family_name == null) {
+			if (other.family_name != null)
 				return false;
-		} else if (!familyName.equals(other.familyName))
+		} else if (!family_name.equals(other.family_name))
 			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
+		if (first_name == null) {
+			if (other.first_name != null)
 				return false;
-		} else if (!firstName.equals(other.firstName))
+		} else if (!first_name.equals(other.first_name))
 			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Author [authorId=" + authorId + ", firstName=" + firstName + ", familyName=" + familyName
-				+ ", publicationAffiliations=" + publicationAffiliations + "]";
-	}
-
+	
 	
 	
 	

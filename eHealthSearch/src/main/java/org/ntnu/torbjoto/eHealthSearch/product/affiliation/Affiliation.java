@@ -13,17 +13,17 @@ public class Affiliation{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int affiliationId;
+	private int affiliation_id;
 	
 	@Column(columnDefinition="text")
 	private String name;
 	
 	public int getAffiliationId() {
-		return affiliationId;
+		return affiliation_id;
 	}
 
 	public void setAffiliationId(int affiliationId) {
-		this.affiliationId = affiliationId;
+		this.affiliation_id = affiliationId;
 	}
 
 	public String getName() {

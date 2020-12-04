@@ -1,6 +1,7 @@
 package org.ntnu.torbjoto.eHealthSearch.product.article;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,25 +10,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="articleId")
+@Table(name="article_id")
 public class ArticleId {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int articleLinkId;
+	private int article_link_id;
 	
-	private String idType;
+	private String id_type;
 	private String id;
 	
-	@ManyToOne
-	@JoinColumn(name="article_id")
-	private Publication article;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="publication_id")
+	private Publication publication;
 
 	public String getIdType() {
-		return idType;
+		return id_type;
 	}
 
 	public void setIdType(String idType) {
-		this.idType = idType.trim();
+		this.id_type = idType.trim();
 	}
 
 	public String getId() {
@@ -39,26 +40,26 @@ public class ArticleId {
 	}
 
 	public Publication getArticle() {
-		return article;
+		return publication;
 	}
 
 	public void setArticle(Publication article) {
-		this.article = article;
+		this.publication = article;
 	}
 
 	public int getArticleLinkId() {
-		return articleLinkId;
+		return article_link_id;
 	}
 
 	public void setArticleLinkId(int articleLinkId) {
-		this.articleLinkId = articleLinkId;
+		this.article_link_id = articleLinkId;
 	}
 	
 	
 
 	@Override
 	public String toString() {
-		return "ArticleId [articleLinkId=" + articleLinkId + ", idType=" + idType + ", id=" + id + "]";
+		return "ArticleId [articleLinkId=" + article_link_id + ", idType=" + id_type + ", id=" + id + "]";
 	}
 
 	@Override
@@ -66,7 +67,7 @@ public class ArticleId {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((idType == null) ? 0 : idType.hashCode());
+		result = prime * result + ((id_type == null) ? 0 : id_type.hashCode());
 		return result;
 	}
 
@@ -84,10 +85,10 @@ public class ArticleId {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (idType == null) {
-			if (other.idType != null)
+		if (id_type == null) {
+			if (other.id_type != null)
 				return false;
-		} else if (!idType.equals(other.idType))
+		} else if (!id_type.equals(other.id_type))
 			return false;
 		return true;
 	}

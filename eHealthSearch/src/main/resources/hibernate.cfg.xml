@@ -6,20 +6,20 @@
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         
-       
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/helsesok</property>
+       	
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ehelsesok</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">password</property>
+        <property name="hibernate.connection.password">snow</property>
       
-         <!-- 
-        <property name="hibernate.connection.url">jdbc:mysql://10.0.0.152:3306/helsesok?jdbcCompliantTruncation=false</property>
+        <!--
+        <property name="hibernate.connection.url">jdbc:mysql://10.0.0.152:3306/ehelsesok?jdbcCompliantTruncation=false</property>
         <property name="hibernate.connection.username">ehelse</property>
         <property name="hibernate.connection.password">ehelsesok123</property>
-         	--> 
-        
+       	-->
+       	
         <property name="hibernate.connection.pool_size">10</property>
         <property name="hibernate.current_session_context_class">thread</property>
-        <property name="hibernate.show_sql"></property>
+        <property name="hibernate.show_sql">false</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         

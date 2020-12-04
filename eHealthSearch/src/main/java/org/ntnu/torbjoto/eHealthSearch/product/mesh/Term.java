@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Term {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int termId;
+	private int term_id;
 	
 	@OneToOne(cascade = {CascadeType.ALL})
 	private MeshElement descriptor;
@@ -25,11 +25,11 @@ public class Term {
 	private List<MeshElement> qualifier;
 
 	public int getTermId() {
-		return termId;
+		return term_id;
 	}
 
 	public void setTermId(int termId) {
-		this.termId = termId;
+		this.term_id = termId;
 	}
 
 	public MeshElement getDescriptor() {

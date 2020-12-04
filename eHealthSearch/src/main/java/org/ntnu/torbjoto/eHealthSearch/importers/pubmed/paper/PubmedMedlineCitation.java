@@ -17,8 +17,6 @@ import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.article.mesh.Pubme
 
 public class PubmedMedlineCitation {
 	
-	@XmlElement(name = "DateCompleted")
-	private PubmedDate date;
 	
 	@XmlElementWrapper(name = "KeywordList")
 	@XmlElement(name = "Keyword")
@@ -49,14 +47,6 @@ public class PubmedMedlineCitation {
 		this.article = article;
 	}
 	
-	public PubmedDate getDate() {
-		return date;
-	}
-
-	public void setDate(PubmedDate date) {
-		this.date = date;
-	}
-	
 	public List<PubmedKeyword> getKeyWords() {
 		return keyWords;
 	}
@@ -67,6 +57,6 @@ public class PubmedMedlineCitation {
 
 	@Override
 	public String toString() {
-		return "PubmedMedlineCitation [date=" + date + ", meshTerms=" + meshTerms + ", article=" + article + "]";
+		return "PubmedMedlineCitation [meshTerms=" + meshTerms + ", article=" + article + "]";
 	}
 }

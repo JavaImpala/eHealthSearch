@@ -13,8 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.ntnu.torbjoto.eHealthSearch.product.author.Author;
 import org.ntnu.torbjoto.eHealthSearch.product.keyword.Keyword;
@@ -25,11 +23,8 @@ import org.ntnu.torbjoto.eHealthSearch.product.mesh.Term;
 public class Publication {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="localDBId",columnDefinition="publicationId")
+	@Column(name="publication_db_id")
 	private int localDBId;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private LocalDateTime localDateTime;
 	
 	@Column(name="title",columnDefinition="text")
 	private String title;
@@ -37,25 +32,28 @@ public class Publication {
 	@OneToOne(cascade = {CascadeType.ALL})
 	private Abstract abs;
 	
-	//ingen cascade for å unngå duplicate
+	//ingen cascade for å unngå duplicate?
 	@ManyToMany(cascade = {CascadeType.ALL})
 	private Collection<Author> authors;
 	
-	@OneToMany(cascade = {CascadeType.ALL},mappedBy="article")
+	@OneToMany(cascade = {CascadeType.ALL},mappedBy="publication")
 	private Collection<Keyword> keywords;
 	
 	@OneToMany(cascade = {CascadeType.ALL})
 	private Collection<Term> terms;
 	
-	@OneToMany(cascade = {CascadeType.ALL},mappedBy="article")
-	private Collection<ArticleId> articleIds;
+	@OneToMany(cascade = {CascadeType.ALL},mappedBy="publication")
+	private Collection<ArticleId> article_ids;
+	
+	@Column
+	private LocalDateTime publication_date;
 	
 	public Collection<ArticleId> getArticleIds() {
-		return articleIds;
+		return article_ids;
 	}
 
 	public void setArticleIds(Collection<ArticleId> citIds) {
-		this.articleIds = citIds;
+		this.article_ids = citIds;
 	}
 
 	public int getLocalDBId() {
@@ -107,17 +105,18 @@ public class Publication {
 	}
 
 	public LocalDateTime getLocalDateTime() {
-		return localDateTime;
+		return  publication_date;
 	}
 
 	public void setLocalDateTime(LocalDateTime localDateTime) {
-		this.localDateTime = localDateTime;
+		this.publication_date = localDateTime;
 	}
+	
 
 	@Override
 	public String toString() {
 		return "Publication [localDBId=" + localDBId + ", title=" + title + ", abs=" + abs + ", authors=" + authors
-				+ ", keywords=" + keywords + ", terms=" + terms + ", articleIds=" + articleIds + "]";
+				+ ", keywords=" + keywords + ", terms=" + terms + ", articleIds=" + article_ids + "]";
 	}
 	
 	

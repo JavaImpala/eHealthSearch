@@ -13,10 +13,8 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.ntnu.torbjoto.eHealthSearch.EHealthCrawler;
 import org.ntnu.torbjoto.eHealthSearch.TimeTracker;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.db.PubMedConverter;
-import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.db.PubmedToDB;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.PubmedArticleSet;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.PubmedRootArticle;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.query.PubmedQueryConverter;
@@ -47,7 +45,7 @@ public class GetPubmedPublication {
 	
 	public List<Publication> get(GeneralQuery query) {
 		
-		List<PubmedRootArticle> articles=new ArrayList<>();
+		PubMedConverter converter=new PubMedConverter();
 		
 		try {
 	        URL url = new URL(PubmedQueryConverter.convert(query));
@@ -85,27 +83,50 @@ public class GetPubmedPublication {
 				subLists.add(currentList);
 			}
 			
+			JAXBContext context2 = JAXBContext.newInstance(PubmedArticleSet.class);
+			
+			int maxTries=10;
+			
 			for(List<Long> subList:subLists) {
 				
-				log.info("behandler sublist med "+subList.size()+" entries. Har til nå behandlet:"+articles.size());
+				System.out.println("behandler sublist med "+subList.size()+" entries. Har til nå behandlet:"+converter.getPublications().size());
 				
-				String ids=subList.stream()
-						.map(i->i.toString())
-						.collect(Collectors.joining(","));
+				int tries=0;
 				
-		        // Make a URL to the web page
-		        URL url2 = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id="+ids+"&tool=ehelsesok&email=torbjorn.torsvik@ehealthresearch.no");
-		        time.time("åpner stream");
-		        InputStream input=url2.openStream();
+				while(true) {
+					try {
+						String ids=subList.stream()
+								.map(i->i.toString())
+								.collect(Collectors.joining(","));
+						
+						//System.out.println("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id="+ids+"&tool=ehelsesok&email=torbjorn.torsvik@ehealthresearch.no");
+						
+				        // Make a URL to the web page
+				        URL url2 = new URL("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id="+ids+"&tool=ehelsesok&email=torbjorn.torsvik@ehealthresearch.no");
+				        time.time("åpner stream");
+				        InputStream input=url2.openStream();
+				        
+				       
+				        //JAXB
+				      
+				        Unmarshaller um2 = context2.createUnmarshaller();
+				       
+				        log.info("starterUnmarshal");
+				        converter.add(((PubmedArticleSet) um2.unmarshal(input)).getPublications());
+				        
+				        log.info("ferdigUnmarshal");
+				        
+				        break;
+					}catch(Exception e) {
+						System.out.println("prøvde, men feilet, forsøk "+tries);
+						e.printStackTrace();
+						if(++tries==maxTries) throw e;
+					}
+					
+				}
+				
 		        
-		        //JAXB
-		        JAXBContext context2 = JAXBContext.newInstance(PubmedArticleSet.class);
-		        Unmarshaller um2 = context2.createUnmarshaller();
-		       
-		        log.info("starterUnmarshal");
-		        articles.addAll(((PubmedArticleSet) um2.unmarshal(input)).getPublications());
-		        
-		        log.info("ferdigUnmarshal");
+		      // break;
 			}
 	        
 		}catch(IOException  e) {
@@ -113,7 +134,7 @@ public class GetPubmedPublication {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		return PubMedConverter.convert(articles);
+		System.out.println("FERDIG, har konverter => "+converter.getPublications().size());
+		return converter.getPublications();
 	}
 }

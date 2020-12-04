@@ -13,7 +13,7 @@ public class MeshElement {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int meshElementId;
+	private int mesh_element_id;
 	
 	@Column(name="ui")
 	private String ui;
@@ -22,11 +22,11 @@ public class MeshElement {
 	private String value;
 
 	public int getMeshElementId() {
-		return meshElementId;
+		return mesh_element_id;
 	}
 
 	public void setMeshElementId(int meshElementId) {
-		this.meshElementId = meshElementId;
+		this.mesh_element_id = meshElementId;
 	}
 
 	public String getUi() {

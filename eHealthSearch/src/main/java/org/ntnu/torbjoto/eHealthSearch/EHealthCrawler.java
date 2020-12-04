@@ -1,8 +1,7 @@
 package org.ntnu.torbjoto.eHealthSearch;
 
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,31 +44,47 @@ public class EHealthCrawler {
 			
 			List<Publication> publications = new GetPubmedPublication().get(query);
 			
-			log.info("ferdig query, legger inn publications size:"+publications.size());
+			System.out.println("ferdig query, legger inn publications size:"+publications.size());
 			
 			//System.out.println("==================");
 			
+			Iterator<Publication> iterator=publications.iterator();
 			
-			Set<Publication> savedPublications=new HashSet<>();
+			int count=0;
 			
-			for(Publication p:publications) {
-				
-				
-				if(model.match(p).isPresent()) {
-					log.info("ingen add! "+model.match(p).get());
-				}else {
-					log.info("save:"+p);
+			outer:
+			while(true) {		
+				for(int i=0;i<1000;i++) {
+					
+					if(iterator.hasNext()) {
+						Publication p = iterator.next();
+						
+						if(model.match(p).isPresent()) {
+							log.info("ingen add! "+model.match(p).get());
+						}else {
+							System.out.println("save:"+count+" "+p);
+							
+							session.save(p);
+						}
+						
+						iterator.remove();
+						
+						count++;
+					}else {
+						
+						break outer;
+					}
 					
 					
-					session.save(p);
-					savedPublications.add(p);
 				}
 				
-				
-				//session.save(p);
+				//session.flush();
+				//session.clear();
 			}
 			
-			log.info("before commit");
+			
+			
+			System.out.println("before commit");
 			
 			session.getTransaction().commit();
 			session.close();

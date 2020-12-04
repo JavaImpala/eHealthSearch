@@ -1,14 +1,17 @@
 package org.ntnu.torbjoto.eHealthSearch.importers.pubmed.db;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
+import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.PubmedDate;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.PubmedMedlineCitation;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.PubmedRootArticle;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.article.PubmedAuthor;
@@ -28,19 +31,23 @@ import org.ntnu.torbjoto.eHealthSearch.product.mesh.MeshElement;
 import org.ntnu.torbjoto.eHealthSearch.product.mesh.Term;
 
 public class PubMedConverter {
+	Map<String,Affiliation> allAffiliations=new HashMap<>(); 
+	Map<String,Author> allAuthors=new HashMap<>();
 	
+	Map<Term,Term> allTerms=new HashMap<>();
+	Map<String,MeshElement> allMeshElements=new HashMap<>();
 	
-	public static List<Publication> convert(List<PubmedRootArticle> pubmedArticles) {
+	LinkedList<Publication> publications=new LinkedList<>();
+	
+	public List<Publication> getPublications() {
+		return publications;
+	}
+
+	public void add(List<PubmedRootArticle> pubmedArticles) {
 	
 		int count=0;
 		
-		Map<String,Affiliation> allAffiliations=new HashMap<>(); 
-		Map<String,Author> allAuthors=new HashMap<>();
 		
-		Map<Term,Term> allTerms=new HashMap<>();
-		Map<String,MeshElement> allMeshElements=new HashMap<>();
-		
-		List<Publication> publications=new ArrayList<>();
 		
 		for(PubmedRootArticle article:pubmedArticles) {
 			
@@ -218,6 +225,17 @@ public class PubMedConverter {
 					
 					pub.setArticleIds(ids);
 				}
+				
+				if(meta.getDates()!=null && !meta.getDates().isEmpty()) {
+					for(PubmedDate date:meta.getDates()) {
+						if(date.getType().equals("pubmed") || date.getType().equals("entrez") || date.getType().equals("medline")) {
+							pub.setLocalDateTime(LocalDateTime.of(date.getYear(),date.getMonth(),date.getDay(), 0, 0));
+							break;
+						}
+					}
+				}
+				
+				
 			}
 			
 			publications.add(pub);
@@ -226,6 +244,5 @@ public class PubMedConverter {
 		
 		LogManager.getRootLogger().info("ferdig å konvertere, sender ut:"+publications.size()+" av:"+pubmedArticles.size());
 		
-		return publications;
 	}
 }

@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.PubmedDate;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.article.abs.PubmedAbstract;
 import org.ntnu.torbjoto.eHealthSearch.importers.pubmed.paper.article.journal.PubmedJournal;
 
@@ -21,6 +22,8 @@ public class PubmedArticle {
 	
 	@XmlElement(name="ArticleTitle")
 	private String title;
+	
+	
 	
 	@XmlElement(name="Abstract")
 	private PubmedAbstract paperAbstract;
@@ -89,7 +92,8 @@ public class PubmedArticle {
 	public void setArticleIdList(List<String> articleIdList) {
 		this.articleIdList = articleIdList;
 	}
-
+	
+	
 
 	@Override
 	public String toString() {

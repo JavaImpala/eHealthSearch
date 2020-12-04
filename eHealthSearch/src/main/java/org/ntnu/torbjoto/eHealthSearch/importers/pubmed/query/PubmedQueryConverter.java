@@ -7,7 +7,7 @@ import org.ntnu.torbjoto.eHealthSearch.query.TimeConstraints;
 
 public class PubmedQueryConverter {
 	public static String convert(GeneralQuery query) {
-		String string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=Norway[AD]&retmax=20000&usehistory=y";
+		String string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=Norway[AD]&retmax=100000&usehistory=y";
 		
 		if(query.getTime().isPresent()) {
 			TimeConstraints t = query.getTime().get();			
